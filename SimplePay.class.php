@@ -18,31 +18,30 @@ define("SP_Recurring_Payment_URL_Secure","https://api.simplepay.pro/sp/make_recu
 class SimplePay_Payment{
 	public 
 		$amount,						// сумма платежа
-		$client_name,					// имя плательщика
-		$client_email,					// e-mail плательщика
-		$client_phone,					// телефон плательщика
+		$client_name,						// имя плательщика
+		$client_email,						// e-mail плательщика
+		$client_phone,						// телефон плательщика
 		$client_ip,						// IP плательщика (нужно передавать для прямой переадресации на страницу ПС)
-		$description,					// описание покупки
+		$description,						// описание покупки
 		$order_id,						// ID заказа в системе мерчанта
-		$recurrent_start = false,		// Если нужно инициализировать рекуррентный профиль - поставить true
-		$lifetime = 86400,				// Срок действия транзакции - сутки
-		$user_validation_code = NULL,	// Код SMS-подтверждения, отправленного пользователю (если проверка номера телефона происходит на стороне ТСП)
-		$user_validation_date = NULL;	// Дата отправки кода SMS-подтверждения ю (если проверка номера телефона происходит на стороне ТСП)
+		$recurrent_start = false,				// Если нужно инициализировать рекуррентный профиль - поставить true
+		$lifetime = 86400,					// Срок действия транзакции - сутки
+		$user_validation_code = NULL,				// Код SMS-подтверждения, отправленного пользователю (если проверка номера телефона происходит на стороне ТСП)
+		$user_validation_date = NULL;				// Дата отправки кода SMS-подтверждения ю (если проверка номера телефона происходит на стороне ТСП)
 	public 
-		$payment_system = 'TEST';		// ID платежной системы (по умолчению - тестовая система)
+		$payment_system = 'TEST';				// ID платежной системы (по умолчению - тестовая система)
 }
 
 /* Клиентский класс торговой точки для проведения платежей через SimplePay */ 
 
 class SimplePay{
 	private
-		$merchant_id = 'ID мерчанта',		// ID мерчанта в системе SimplePay
-		$outlet_id = 'ID торговой точки',	// ID торговой точки в системе SimplePay
-		$secret_key = 'ВАШ КЛЮЧ',			// секретный ключ торговой точки
-		$result_script_name = 'result.php'; // имя файла (basename) от Result URL на сервере мерчанта (result.php для http://yoursite.ru/sp/result.php)
+		$outlet_id = 'ID торговой точки',			// ID торговой точки в системе SimplePay
+		$secret_key = 'ВАШ КЛЮЧ',				// секретный ключ торговой точки
+		$result_script_name = 'result.php'; 			// имя файла (basename) от Result URL на сервере мерчанта (result.php для http://yoursite.ru/sp/result.php)
 			
 	public 
-		$test_mode = false;				// режим тестовых платежей
+		$test_mode = false;					// режим тестовых платежей
 	
 	public function process_success($order_id, $details){
 		// ваш обработчик успешного зачисления средств	
@@ -60,12 +59,11 @@ class SimplePay{
 		$arrReq = array();
 		
 		/* Обязательные параметры */
-		$arrReq['sp_merchant_id'] = $this->merchant_id;// Идентификатор магазина
-		$arrReq['sp_outlet_id'] = $this->outlet_id;// Идентификатор магазина
+		$arrReq['sp_outlet_id'] = $this->outlet_id;		// Идентификатор магазина
 		
 		$arrReq['sp_order_id']    = $payment->order_id;		// Идентификатор заказа в системе магазина
 		$arrReq['sp_amount']      = $payment->amount;		// Сумма заказа
-		$arrReq['sp_lifetime']    = $payment->lifetime;				// Время жизни счёта (в секундах)
+		$arrReq['sp_lifetime']    = $payment->lifetime;		// Время жизни счёта (в секундах)
 		$arrReq['sp_description'] = $payment->description; 	// Описание заказа (показывается в Платёжной системе)
 		$arrReq['sp_user_phone'] = $payment->client_phone;
 		$arrReq['sp_user_ip'] = $payment->client_ip;
@@ -81,7 +79,7 @@ class SimplePay{
 		
 		// если надо инициализировать рекурентный профиль
 		if($payment->recurrent_start)
-		$arrReq['sp_recurring_start'] = 1; 	// Инициализовать рекуррентный профиль
+		$arrReq['sp_recurring_start'] = 1; 			// Инициализовать рекуррентный профиль
 		
 		// Название ПС из справочника ПС. Задаётся, если не требуется выбор ПС. Если не задано, выбор будет предложен пользователю на сайте simplepay.pro
 		$arrReq['sp_payment_system'] = $payment->payment_system;
@@ -106,11 +104,10 @@ class SimplePay{
 		$arrReq = array();
 		
 		/* Обязательные параметры */
-		$arrReq['sp_merchant_id'] = $this->merchant_id;// Идентификатор магазина
-		$arrReq['sp_outlet_id'] = $this->outlet_id;// Идентификатор магазина
+		$arrReq['sp_outlet_id'] = $this->outlet_id;		// Идентификатор магазина
 		$arrReq['sp_order_id']    = $payment->order_id;		// Идентификатор заказа в системе магазина
 		$arrReq['sp_amount']      = $payment->amount;		// Сумма заказа
-		$arrReq['sp_lifetime']    = $payment->lifetime;				// Время жизни счёта (в секундах)
+		$arrReq['sp_lifetime']    = $payment->lifetime;		// Время жизни счёта (в секундах)
 		$arrReq['sp_description'] = $payment->description; 	// Описание заказа (показывается в Платёжной системе)
 		$arrReq['sp_user_phone'] = $payment->client_phone;
 		$arrReq['sp_user_ip'] = $payment->client_ip;
@@ -124,7 +121,7 @@ class SimplePay{
 			
 		$arrReq['sp_user_contact_email'] = $payment->client_email;
 		if($payment->recurrent_start)
-		$arrReq['sp_recurring_start'] = 1; 	// Инициализовать рекуррентный профиль
+		$arrReq['sp_recurring_start'] = 1; 			// Инициализовать рекуррентный профиль
 		
 
 		// Название ПС из справочника ПС. Задаётся, если не требуется выбор ПС. Если не задано, выбор будет предложен пользователю на сайте simplepay.pro
@@ -152,11 +149,10 @@ class SimplePay{
 		
 		/* Обязательные параметры */
 		$arrReq['sp_recurring_profile'] = abs(intval($recurring_profile_id));	// ID профиля рекурентов
-		$arrReq['sp_merchant_id'] = $this->merchant_id;// Идентификатор магазина
-		$arrReq['sp_outlet_id'] = $this->outlet_id;// Идентификатор магазина
+		$arrReq['sp_outlet_id'] = $this->outlet_id;		// Идентификатор магазина
 		$arrReq['sp_order_id']    = $payment->order_id;		// Идентификатор заказа в системе магазина
 		$arrReq['sp_amount']      = $payment->amount;		// Сумма заказа
-		$arrReq['sp_lifetime']    = $payment->lifetime;				// Время жизни счёта (в секундах)
+		$arrReq['sp_lifetime']    = $payment->lifetime;		// Время жизни счёта (в секундах)
 		$arrReq['sp_description'] = $payment->description; 	// Описание заказа (показывается в Платёжной системе)
 		
 		// Параметры безопасности сообщения. Необходима генерация sp_salt и подписи сообщения.
@@ -180,8 +176,8 @@ class SimplePay{
 	// запрос статуса платежа по ID платежа в SimplePay
 	function get_payment_status_by_transaction_id($payment_id){
 		// Обязательные параметры
-		$arrReq['sp_merchant_id'] = $this->merchant_id;// Идентификатор магазина
-		$arrReq['sp_outlet_id'] = $this->outlet_id;// Идентификатор магазина
+		$arrReq['sp_merchant_id'] = $this->merchant_id;		// Идентификатор магазина
+		$arrReq['sp_outlet_id'] = $this->outlet_id;		// Идентификатор магазина
 		$arrReq['sp_payment_id']    = $payment_id;		// Идентификатор заказа в системе SP
 		
 		// Параметры безопасности сообщения. Необходима генерация sp_salt и подписи сообщения.
@@ -204,9 +200,8 @@ class SimplePay{
 	// ВНИМАНИЕ! Мерчант сам должен следить за уникальностью этого номера, SimplePay вернет данные по последнему заказу с таким номером
 	function get_payment_status_by_order_id($order_id){
 		// Обязательные параметры
-		$arrReq['sp_merchant_id'] = $this->merchant_id;// Идентификатор магазина
-		$arrReq['sp_outlet_id'] = $this->outlet_id;// Идентификатор магазина
-		$arrReq['sp_order_id']    = $order_id;		// Идентификатор заказа в системе SP
+		$arrReq['sp_outlet_id'] = $this->outlet_id;		// Идентификатор магазина
+		$arrReq['sp_order_id']    = $order_id;			// Идентификатор заказа в системе SP
 		
 		// Параметры безопасности сообщения. Необходима генерация sp_salt и подписи сообщения.
 		$arrReq['sp_salt'] = rand(21,43433);
@@ -427,14 +422,6 @@ class SP_Signature {
 	}
 
 	/********************** singing XML ***********************/
-
-	/**
-	 * make the signature for XML
-	 *
-	 * @param string|SimpleXMLElement $xml
-	 * @param string $strSecretKey
-	 * @return string
-	 */
 	public static function makeXML ( $strScriptName, $xml, $strSecretKey )
 	{
 		$arrFlatParams = self::makeFlatParamsXML($xml);
@@ -443,10 +430,6 @@ class SP_Signature {
 
 	/**
 	 * Verifies the signature of XML
-	 *
-	 * @param string|SimpleXMLElement $xml
-	 * @param string $strSecretKey
-	 * @return bool
 	 */
 	public static function checkXML ( $strScriptName, $xml, $strSecretKey )
 	{
@@ -460,10 +443,6 @@ class SP_Signature {
 	/**
 	 * Returns a string, a hash of which coincide with the result of the makeXML() method.
 	 * WARNING: This method can be used only for debugging purposes!
-	 *
-	 * @param string|SimpleXMLElement $xml
-	 * @param string $strSecretKey
-	 * @return string
 	 */
 	public static function debug_only_SigStrXML ( $strScriptName, $xml, $strSecretKey )
 	{
@@ -473,9 +452,6 @@ class SP_Signature {
 
 	/**
 	 * Returns flat array of XML params
-	 *
-	 * @param (string|SimpleXMLElement) $xml
-	 * @return array
 	 */
 	private static function makeFlatParamsXML ( $xml, $parent_name = '' )
 	{

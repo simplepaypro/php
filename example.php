@@ -1,19 +1,20 @@
 <?
 require_once('SimplePay.class.php');
 
-$new_payment = new SimplePay_Payment;
-$new_payment->order_id = 300;	// номер заказа	
-$new_payment->amount = 500;		// сумма
+$new_payment = new SimplePay_Payment;   // Новый экземпляр платежа
+$new_payment->order_id = 300;	        // номер заказа	
+$new_payment->amount = 500;		        // сумма
 $new_payment->description = 'Описание заказа';
 
 $simplepay = new SimplePay;
 
-// 1. платеж
-$simplepay->init_payment($new_payment); // обычный платеж
+// 1. Обычный платеж с передачей параметров в браузере пользователя
+$simplepay->init_payment($new_payment);
 
+// 2. Прямое взаимодействие - вернет ссылку для оплаты и описание параметров в виде XML или JSON
+$direct_answer = $simplepay->init_payment_direct($new_payment);
 
-// 2. платеж прямое взаимодействие
-$direct_answer = $simplepay->init_payment_direct($new_payment); // прямое взаимодействие
+// Переадресация плательщика
 header("location: ".$direct_answer['sp_redirect_url']);
 
 /* вернет массив типа

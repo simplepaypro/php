@@ -13,8 +13,8 @@ $simplepay->init_payment($new_payment); // обычный платеж
 
 
 // 2. платеж прямое взаимодействие
-//$direct_answer = $simplepay->init_payment_direct($new_payment); // прямое взаимодействие
-//header("location: ".$direct_answer['sp_redirect_url']);
+$direct_answer = $simplepay->init_payment_direct($new_payment); // прямое взаимодействие
+header("location: ".$direct_answer['sp_redirect_url']);
 
 /* вернет массив типа
 (
@@ -27,7 +27,7 @@ $simplepay->init_payment($new_payment); // обычный платеж
 */
 
 // 3. проведение платежа по рекурентному профилю
-//$answer = $simplepay->make_recurring_payment($new_payment,10);
+$answer = $simplepay->make_recurring_payment($new_payment,10);
 /* вернет массив вида:
 (
     [sp_status] => need_payment
@@ -36,7 +36,7 @@ $simplepay->init_payment($new_payment); // обычный платеж
 */
 
 // 4. проверка состояния платежа
-//$answer = $simplepay->get_payment_status_by_transaction_id(170);
+$answer = $simplepay->get_payment_status_by_transaction_id(170);
 
 /* вернет массив вида:
 (

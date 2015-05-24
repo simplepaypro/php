@@ -1,8 +1,8 @@
 <?
 require_once('SimplePay.class.php');
 
-$new_payment = new SimplePay_Payment;   // Новый экземпляр платежа
-$new_payment->order_id = 300;	        // номер заказа	
+$new_payment = new SimplePay_Payment;       // Новый экземпляр платежа
+$new_payment->order_id = 300;	            // номер заказа	
 $new_payment->amount = 500;		        // сумма
 $new_payment->description = 'Описание заказа';
 

@@ -3,16 +3,16 @@
 // curl, simplexml
 
 // URL для совершения платежа в обычном режиме
-define("SP_Payment_URL","http://api.simplepay.pro/sp/payment.php");
-define("SP_Payment_URL_Secure","https://api.simplepay.pro/sp/payment.php");
+define("SP_Payment_URL","http://api.simplepay.pro/sp/payment");
+define("SP_Payment_URL_Secure","https://api.simplepay.pro/sp/payment");
 
 // URL для совершения платежа в режиме прямого взаимодействия
-define("SP_Payment_URL_Direct","http://api.simplepay.pro/sp/init_payment.php");
-define("SP_Payment_URL_Direct_Secure","https://api.simplepay.pro/sp/init_payment.php");
+define("SP_Payment_URL_Direct","http://api.simplepay.pro/sp/init_payment");
+define("SP_Payment_URL_Direct_Secure","https://api.simplepay.pro/sp/init_payment");
 
 // URL для совершения рекуррентного платежа
-define("SP_Recurring_Payment_URL","http://api.simplepay.pro/sp/make_recurring_payment.php");
-define("SP_Recurring_Payment_URL_Secure","https://api.simplepay.pro/sp/make_recurring_payment.php");
+define("SP_Recurring_Payment_URL","http://api.simplepay.pro/sp/make_recurring_payment");
+define("SP_Recurring_Payment_URL_Secure","https://api.simplepay.pro/sp/make_recurring_payment");
 
 /* интерфейсный класс инициализации платежа */
 class SimplePay_Payment{

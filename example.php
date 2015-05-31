@@ -12,7 +12,7 @@ $simplepay = new SimplePay;
 $simplepay->init_payment($new_payment);
 
 // 2. Прямое взаимодействие - вернет ссылку для оплаты и описание параметров в виде XML или JSON
-$direct_answer = $simplepay->init_payment_direct($new_payment);
+//$direct_answer = $simplepay->init_payment_direct($new_payment);
 
 // Переадресация плательщика
 header("location: ".$direct_answer['sp_redirect_url']);
@@ -28,7 +28,8 @@ header("location: ".$direct_answer['sp_redirect_url']);
 */
 
 // 3. проведение платежа по рекурентному профилю
-$answer = $simplepay->make_recurring_payment($new_payment,10);
+//$answer = $simplepay->make_recurring_payment($new_payment,10);
+
 /* вернет массив вида:
 (
     [sp_status] => need_payment
@@ -37,7 +38,7 @@ $answer = $simplepay->make_recurring_payment($new_payment,10);
 */
 
 // 4. проверка состояния платежа
-$answer = $simplepay->get_payment_status_by_transaction_id(170);
+//$answer = $simplepay->get_payment_status_by_transaction_id(170);
 
 /* вернет массив вида:
 (

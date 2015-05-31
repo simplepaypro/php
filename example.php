@@ -1,4 +1,9 @@
 <?
+/* 
+SimplePay API PHP example (for PHP 5)
+https://simplepay.pro/
+*/
+
 require_once('SimplePay.class.php');
 
 $new_payment = new SimplePay_Payment;               // Новый экземпляр платежа

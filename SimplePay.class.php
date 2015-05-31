@@ -73,17 +73,8 @@ class SimplePay{
 		$arrReq['sp_amount']      = $payment->amount;		// Сумма заказа
 		$arrReq['sp_lifetime']    = $payment->lifetime;		// Время жизни счёта (в секундах)
 		$arrReq['sp_description'] = $payment->description; 	// Описание заказа (показывается в Платёжной системе)
-		$arrReq['sp_user_phone'] = $payment->client_phone;
-		$arrReq['sp_user_ip'] = $payment->client_ip;
 		$arrReq['sp_user_name'] = $payment->client_name;
 		$arrReq['sp_user_contact_email'] = $payment->client_email;
-		
-		// если ТСП осуществляет валидацию номера телефона на своей стороне, 
-		// он должен передать код SMS-подтверждения, который был отправлен клиенту, а также дату подтверждения кода.
-		if(!empty($payment->user_validation_date))
-			$arrReq['sp_user_validation_date'] = $payment->user_validation_date;
-		if(!empty($payment->user_validation_code))
-			$arrReq['sp_user_validation_code'] = $payment->user_validation_code;
 		
 		// если надо инициализировать рекурентный профиль
 		if($payment->recurrent_start)
@@ -122,15 +113,16 @@ class SimplePay{
 		$arrReq['sp_user_name'] = $payment->client_name;
 		$arrReq['sp_user_contact_email'] = $payment->client_email;
 		
+		// если ТСП осуществляет валидацию номера телефона на своей стороне, 
+		// он должен передать код SMS-подтверждения, который был отправлен клиенту, а также дату подтверждения кода.
 		if(!empty($payment->user_validation_date))
 			$arrReq['sp_user_validation_date'] = $payment->user_validation_date;
 		if(!empty($payment->user_validation_code))
 			$arrReq['sp_user_validation_code'] = $payment->user_validation_code;
-			
-		$arrReq['sp_user_contact_email'] = $payment->client_email;
+		
+		// Стартовать рекуррентный профиль или нет?
 		if($payment->recurrent_start)
 		$arrReq['sp_recurring_start'] = 1; 			// Инициализовать рекуррентный профиль
-		
 
 		// Название ПС из справочника ПС. Задаётся, если не требуется выбор ПС. Если не задано, выбор будет предложен пользователю на сайте simplepay.pro
 		$arrReq['sp_payment_system'] = $payment->payment_system;

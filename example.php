@@ -13,9 +13,8 @@ $simplepay->init_payment($new_payment);
 
 // 2. Прямое взаимодействие - вернет ссылку для оплаты и описание параметров в виде XML или JSON
 //$direct_answer = $simplepay->init_payment_direct($new_payment);
-
 // Переадресация плательщика
-header("location: ".$direct_answer['sp_redirect_url']);
+//header("location: ".$direct_answer['sp_redirect_url']);
 
 /* вернет массив типа
 (

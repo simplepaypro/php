@@ -1,6 +1,14 @@
 <?php
-// Для корректной работы требуются расширения PHP:
-// curl, simplexml
+/* 
+SimplePay API PHP example (for PHP 5)
+https://simplepay.pro/
+*/
+
+/*
+Для корректной работы требуются расширения PHP:
+simplexml
+curl - в случае использования метода direct_payment
+*/
 
 // URL для совершения платежа в обычном режиме
 define("SP_Payment_URL","http://api.simplepay.pro/sp/payment");

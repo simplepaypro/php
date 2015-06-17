@@ -35,7 +35,8 @@ class SimplePay_Payment{
 		$recurrent_start = false,				// Если нужно инициализировать рекуррентный профиль - поставить true
 		$lifetime = 86400,					// Срок действия транзакции - сутки
 		$user_validation_code = NULL,				// Код SMS-подтверждения, отправленного пользователю (если проверка номера телефона происходит на стороне ТСП)
-		$user_validation_date = NULL;				// Дата отправки кода SMS-подтверждения ю (если проверка номера телефона происходит на стороне ТСП)
+		$user_validation_date = NULL,				// Дата отправки кода SMS-подтверждения ю (если проверка номера телефона происходит на стороне ТСП)
+		$user_params = NULL;
 	public 
 		$payment_system = 'TEST';				// ID платежной системы (по умолчению - тестовая система)
 }
@@ -69,12 +70,13 @@ class SimplePay{
 		/* Обязательные параметры */
 		$arrReq['sp_outlet_id'] = $this->outlet_id;		// Идентификатор магазина
 		
-		$arrReq['sp_order_id']    = $payment->order_id;		// Идентификатор заказа в системе магазина
-		$arrReq['sp_amount']      = $payment->amount;		// Сумма заказа
-		$arrReq['sp_lifetime']    = $payment->lifetime;		// Время жизни счёта (в секундах)
-		$arrReq['sp_description'] = $payment->description; 	// Описание заказа (показывается в Платёжной системе)
-		$arrReq['sp_user_name'] = $payment->client_name;
+		$arrReq['sp_order_id']    	= $payment->order_id;		// Идентификатор заказа в системе магазина
+		$arrReq['sp_amount']      	= $payment->amount;		// Сумма заказа
+		$arrReq['sp_lifetime']    	= $payment->lifetime;		// Время жизни счёта (в секундах)
+		$arrReq['sp_description'] 	= $payment->description; 	// Описание заказа (показывается в Платёжной системе)
+		$arrReq['sp_user_name'] 	= $payment->client_name;
 		$arrReq['sp_user_contact_email'] = $payment->client_email;
+		$arrReq['sp_user_params'] 	= $payment->$user_params;
 		
 		// если надо инициализировать рекурентный профиль
 		if($payment->recurrent_start)

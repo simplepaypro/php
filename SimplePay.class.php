@@ -76,7 +76,7 @@ class SimplePay{
 		$arrReq['sp_description'] 	= $payment->description; 	// Описание заказа (показывается в Платёжной системе)
 		$arrReq['sp_user_name'] 	= $payment->client_name;
 		$arrReq['sp_user_contact_email'] = $payment->client_email;
-		$arrReq['sp_user_params'] 	= $payment->$user_params;
+		$arrReq['sp_user_params'] 	= $payment->user_params;
 		
 		// если надо инициализировать рекурентный профиль
 		if($payment->recurrent_start)

@@ -47,6 +47,7 @@ class SimplePay{
 	private
 		$outlet_id = 'ID торговой точки',			// ID торговой точки в системе SimplePay
 		$secret_key = 'ВАШ КЛЮЧ',				// секретный ключ торговой точки
+		$secret_result_key = 'ВАШ КЛЮЧ',				// Секретный ключ для Result
 		$result_script_name = 'result.php'; 			// имя файла (basename) от Result URL на сервере мерчанта (result.php для http://yoursite.ru/sp/result.php)
 			
 	public 
@@ -243,7 +244,7 @@ class SimplePay{
 		else die("Некорректные параметры запроса");
 			
 			// проверяем подпись
-			if ( !sp_Signature::check($REQUEST_PARAMS['sp_sig'], $this->result_script_name, $REQUEST_PARAMS, $this->secret_key) )
+			if ( !sp_Signature::check($REQUEST_PARAMS['sp_sig'], $this->result_script_name, $REQUEST_PARAMS, $this->secret_result_key) )
 				die("Некорректная подпись запроса");
 				
 			$order_id = $REQUEST_PARAMS['sp_order_id'];
@@ -266,7 +267,7 @@ class SimplePay{
 			else
 			$xml->addChild('sp_description', "Платеж отменен");
 			
-			$xml->addChild('sp_sig', sp_Signature::makeXML($this->result_script_name, $xml, $this->secret_key));
+			$xml->addChild('sp_sig', sp_Signature::makeXML($this->result_script_name, $xml, $this->secret_result_key));
 			
 			header('Content-type: text/xml');
 			print $xml->asXML();
@@ -475,7 +476,7 @@ class SP_Signature {
 			 */
 			$name = $parent_name . $tag->getName().sprintf('%03d', $i);
 
-			if ( $tag->children()->count() > 0 ) {
+			if ( count($tag->children()) > 0 ) {
 				$arrParams = array_merge($arrParams, self::makeFlatParamsXML($tag, $name));
 				continue;
 			}
